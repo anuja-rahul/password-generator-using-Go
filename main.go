@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"fmt"
 	"log"
 	"os"
 )
@@ -40,6 +41,7 @@ func readFile() ([][]string, error) {
 }
 
 func main() {
-
-	// fmt.Printf("file: %v\n", f)
+	entries, err := readFile()
+	checkError(err)
+	fmt.Printf("Entries: %v\n", entries)
 }
