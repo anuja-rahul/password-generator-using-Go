@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"encoding/csv"
 	"log"
 	"os"
 )
@@ -14,12 +14,32 @@ func checkError(err error) {
 
 const FILENAME string = "passwords.csv"
 
-func main() {
+func readFile() ([][]string, error) {
+
 	f, err := os.Open(FILENAME)
 	if err != nil {
 		f, err = os.Create(FILENAME)
 		checkError(err)
-		fmt.Println("Created FIle !")
+		log.Println("Created FIle !")
 	}
-	fmt.Printf("file: %v\n", f)
+
+	defer func(f *os.File) {
+		err := f.Close()
+		if err != nil {
+			checkError(err)
+		}
+	}(f)
+
+	r := csv.NewReader(f)
+	entries, err := r.ReadAll()
+	if err != nil {
+		return [][]string{}, err
+	}
+
+	return entries, nil
+}
+
+func main() {
+
+	// fmt.Printf("file: %v\n", f)
 }
