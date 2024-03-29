@@ -5,4 +5,4 @@
 
 Made as a part of a coding challenge
 
-![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=anuja-rahul&repo=password-generator-using-Go\&show_owner=true\&theme=nightowl)
+![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=anuja-rahul&repo=password-generator-using-Go\&theme=nightowl)
