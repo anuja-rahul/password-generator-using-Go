@@ -1,47 +1,50 @@
 package main
 
 import (
-	"encoding/csv"
 	"fmt"
-	"log"
-	"os"
+	"math/rand"
 )
 
-func checkError(err error) {
-	if err != nil {
-		log.Panicln(err)
-	}
-}
-
-const FILENAME string = "passwords.csv"
-
-func readFile() ([][]string, error) {
-
-	f, err := os.Open(FILENAME)
-	if err != nil {
-		f, err = os.Create(FILENAME)
-		checkError(err)
-		log.Println("Created FIle !")
-	}
-
-	defer func(f *os.File) {
-		err := f.Close()
-		if err != nil {
-			checkError(err)
-		}
-	}(f)
-
-	r := csv.NewReader(f)
-	entries, err := r.ReadAll()
-	if err != nil {
-		return [][]string{}, err
-	}
-
-	return entries, nil
-}
-
 func main() {
-	entries, err := readFile()
-	checkError(err)
-	fmt.Printf("Entries: %v\n", entries)
+	lowLetters := "abcdefghijklmnopqrstuvwxyz"
+	highLetters := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	specialChar := "!@3$%^&*()_+{}|[]/?><"
+	numbers := "0123456789"
+
+	var length int
+	fmt.Println("Enter your Number:")
+	_, err := fmt.Scan(&length)
+
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
+
+	password := ""
+
+	for n := 0; n < length; n++ {
+		randomNum := rand.Intn(4)
+		// fmt.Println(randomNum)
+
+		switch randomNum {
+		case 0:
+			randomNum := rand.Intn(len(lowLetters))
+			password = password + string(lowLetters[randomNum])
+			break
+		case 1:
+			randomNum := rand.Intn(len(highLetters))
+			password = password + string(highLetters[randomNum])
+			break
+		case 2:
+			randomNum := rand.Intn(len(specialChar))
+			password = password + string(specialChar[randomNum])
+			break
+		case 3:
+			randomNum := rand.Intn(len(numbers))
+			password = password + string(numbers[randomNum])
+			break
+		}
+	}
+
+	fmt.Println("\n\nYour password is:", password)
+
 }
